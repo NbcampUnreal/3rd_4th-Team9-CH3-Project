@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "MainCharacter.generated.h"
 
+struct FInputActionValue;
+class UCameraComponent;
+
 UCLASS()
 class PROTOCOL9_API AMainCharacter : public ACharacter
 {
@@ -15,10 +18,26 @@ public:
 	AMainCharacter();
 
 protected:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* CameraComponent;
+
+	
 	virtual void BeginPlay() override;
 
 public:	
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+	void Move(const FInputActionValue& Value);
+	UFUNCTION()
+	void Look(const FInputActionValue& Value);
+	UFUNCTION()
+	void Dash(const FInputActionValue& Value);
+	UFUNCTION()
+	void StartJump(const FInputActionValue& Value);
+	UFUNCTION()
+	void StopJump(const FInputActionValue& Value);
+	
 };
